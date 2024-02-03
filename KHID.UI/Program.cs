@@ -39,10 +39,8 @@ class Program
 
         var window = new PhotinoWindow()
             .SetTitle("KHInsider Downloader")
-            .SetMinWidth(400)
-            .SetMinHeight(400)
-            .SetWidth(650)
-            .SetHeight(500)
+            .SetMinSize(Convert.ToInt32(500 * ScreenScaleFactor.Get()), Convert.ToInt32(400 * ScreenScaleFactor.Get()))
+            .SetSize(Convert.ToInt32(850 * ScreenScaleFactor.Get()), Convert.ToInt32(720 * ScreenScaleFactor.Get()))
             .SetUseOsDefaultSize(false)
             .Center()
             .SetResizable(true)
