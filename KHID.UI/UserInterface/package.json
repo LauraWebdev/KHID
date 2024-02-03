@@ -1,0 +1,30 @@
+{
+    "name": "khid.ui",
+    "version": "1.0.0",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build --emptyOutDir",
+        "preview": "vite preview --port 4173",
+        "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+    },
+    "dependencies": {
+        "@fontsource-variable/manrope": "^5.0.18",
+        "@vueuse/core": "^10.7.2",
+        "mitt": "^3.0.1",
+        "moment": "^2.30.1",
+        "remixicon": "^4.1.0",
+        "vue": "^3.2.38",
+        "vue-router": "^4.2.5"
+    },
+    "devDependencies": {
+        "@rushstack/eslint-patch": "^1.7.2",
+        "@vitejs/plugin-vue": "^3.0.3",
+        "@vitejs/plugin-vue-jsx": "^2.0.1",
+        "@vue/eslint-config-prettier": "^7.1.0",
+        "eslint": "^8.56.0",
+        "eslint-plugin-vue": "^9.21.1",
+        "prettier": "^2.8.8",
+        "sass": "^1.70.0",
+        "vite": "^3.0.9"
+    }
+}
