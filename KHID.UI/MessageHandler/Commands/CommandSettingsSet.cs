@@ -2,6 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
 using PhotinoNET;
 
 namespace KHID.UI.MessageHandler.Commands;
@@ -20,14 +21,14 @@ public class CommandSettingsSet(IServiceProvider serviceProvider) : ICommand
         if (data == null) return;
         _settingsManager = SettingsManager.SettingsManager.GetInstance();
 
-        var dataArray = (JsonArray)data;
+        var dataArray = (JArray)data;
         foreach (var jToken in dataArray)
         {
             if (jToken == null) continue;
-            var dataItem = (JsonObject)jToken;
+            var dataItem = (JObject)jToken;
             
-            var key = dataItem?["key"]?.GetValue<string>();
-            var value = dataItem?["value"]?.GetValue<object>();
+            var key = dataItem.GetValue("key")?.ToObject<string>();
+            var value = dataItem.GetValue("value")?.ToObject<object?>();
 
             if (key == null || value == null) continue;
             

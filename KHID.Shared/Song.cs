@@ -4,5 +4,4 @@ public class Song
 {
     public string Url;
     public string Name;
-    public string Format;
 }

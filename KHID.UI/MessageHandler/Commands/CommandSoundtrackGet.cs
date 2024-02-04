@@ -14,7 +14,7 @@ public class CommandSoundtrackGet(IServiceProvider serviceProvider) : ICommand
         if (data == null) return;
         var urlOrSlug = data.ToString();
 
-        var soundtrack = DownloadQueue.Instance.GetSoundtrackMeta(urlOrSlug);
+        var soundtrack = await DownloadQueue.Instance.GetSoundtrackMeta(urlOrSlug);
 
         Message response = new() {
             Command = "soundtrack-get-response",

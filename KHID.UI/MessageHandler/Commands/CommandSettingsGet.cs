@@ -1,6 +1,4 @@
-using System.Text.Json;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
 using PhotinoNET;
 
 namespace KHID.UI.MessageHandler.Commands;
@@ -12,8 +10,6 @@ public class CommandSettingsGet(IServiceProvider serviceProvider) : ICommand
 {
     private SettingsManager.SettingsManager? _settingsManager;
     
-    private readonly ILogger<CommandSettingsGet> _logger = serviceProvider.GetRequiredService<ILogger<CommandSettingsGet>>();
-
     public async Task Execute(PhotinoWindow? sender, object? data)
     {
         if (data == null) return;
@@ -21,11 +17,11 @@ public class CommandSettingsGet(IServiceProvider serviceProvider) : ICommand
         
         var key = data.ToString();
         if (key == null) return;
-        
-        var responseData = new Dictionary<string, object?> {
-            ["key"] = key,
-            ["data"] = _settingsManager.Get<object>(key)
-        };
+
+        var responseData = new JObject(
+            new JProperty("key", key),
+            new JProperty("data", _settingsManager.Get<object>(key))
+        );
 
         Message response = new() {
             Command = "settings-get-response",

@@ -1,6 +1,6 @@
-using System.Text.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace KHID.UI.SettingsManager;
 
@@ -128,7 +128,7 @@ public class SettingsManager
     private void LoadSettings()
     {
         var json = File.ReadAllText(_settingsFilePath);
-        _settings = JsonSerializer.Deserialize<Dictionary<string, object?>>(json) ?? new Dictionary<string, object?>();
+        _settings = JsonConvert.DeserializeObject<Dictionary<string, object?>>(json) ?? new Dictionary<string, object?>();
     }
 
     /// <summary>
@@ -136,7 +136,7 @@ public class SettingsManager
     /// </summary>
     private void SaveSettings()
     {
-        string json = JsonSerializer.Serialize(_settings);
+        string json = JsonConvert.SerializeObject(_settings);
         File.WriteAllText(_settingsFilePath, json);
     }
 

@@ -1,4 +1,4 @@
-using System.Text.Json;
+using Newtonsoft.Json;
 using PhotinoNET;
 
 namespace KHID.UI.MessageHandler;
@@ -22,7 +22,7 @@ public class MessageHandler
             throw new ArgumentNullException($"[MessageHandler] {nameof(sender)} must be of type PhotinoWindow");
         }
         
-        var msg = JsonSerializer.Deserialize<Message>(message);
+        var msg = JsonConvert.DeserializeObject<Message>(message);
         if (msg?.Command == null) return;
         
         var command = _commandFactory.GetCommand(msg.Command);
@@ -45,7 +45,7 @@ public class MessageHandler
 
         try
         {
-            var resultJson = JsonSerializer.Serialize(result);
+            var resultJson = JsonConvert.SerializeObject(result);
             sender?.SendWebMessage(resultJson);
         }
         catch (Exception ex)

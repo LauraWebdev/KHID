@@ -24,7 +24,7 @@ public class DownloadQueue
         
         var albumUrl = urlOrSlug.StartsWith("https://downloads.khinsider.com") ? urlOrSlug : $"https://downloads.khinsider.com/game-soundtracks/album/{urlOrSlug}";
         var albumWebsite = new HtmlWeb();
-        var albumDocument = albumWebsite.Load(albumUrl);
+        var albumDocument = await albumWebsite.LoadFromWebAsync(albumUrl);
         
         var albumTitleNode = albumDocument.DocumentNode.SelectSingleNode("//head/title");
         if (albumTitleNode.InnerHtml == "Error")
@@ -53,10 +53,11 @@ public class DownloadQueue
             if (songListHeaderItem.InnerText == "CD") hasCdHeader = true;
             
             // Filter out non-format table headers
-            if (new [] { "", "&nbsp;", "CD", "#", "Song Name" }.Contains(songListHeaderItem.InnerText.ToLower())) continue;
+            if (new [] { "", "&nbsp;", "CD", "#", "Song Name" }.Contains(songListHeaderItem.InnerText)) continue;
             
-            soundtrack.Formats.Add(songListHeaderItem.InnerText);
+            soundtrack.Formats.Add(songListHeaderItem.InnerText.ToLower());
         }
+        Console.WriteLine($"[DownloadQueue] Formats: {string.Join(", ", soundtrack.Formats)}");
         
         // Songs
         var songListItems = albumDocument.DocumentNode.SelectNodes($"//*[@id=\"songlist\"]/tr[not(@id)]/td[{(hasCdHeader ? '4' : '3')}]/a");
@@ -70,6 +71,7 @@ public class DownloadQueue
             };
             soundtrack.Songs.Add(song);
         }
+        Console.WriteLine($"[DownloadQueue] Songs: {soundtrack.Songs.Count}");
 
         return soundtrack;
     }

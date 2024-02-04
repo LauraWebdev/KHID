@@ -1,5 +1,4 @@
 :root {
-    // Base
     --color-base-50: #f6f6f6;
     --color-base-100: #e7e7e7;
     --color-base-200: #d1d1d1;
@@ -12,15 +11,27 @@
     --color-base-900: #232323;
     --color-base-950: #111111;
 
-    --color-purple-50: #f9f5ff;
-    --color-purple-100: #f0e8ff;
-    --color-purple-200: #e4d5ff;
-    --color-purple-300: #d0b4fe;
-    --color-purple-400: #b384fc;
-    --color-purple-500: #a268f8;
-    --color-purple-600: #7f33ea;
-    --color-purple-700: #6b22ce;
-    --color-purple-800: #5c21a8;
-    --color-purple-900: #4c1c87;
-    --color-purple-950: #310764;
+    --color-primary-50: 249 245 255;
+    --color-primary-100: 240 232 255;
+    --color-primary-200: 228 213 255;
+    --color-primary-300: 208 180 254;
+    --color-primary-400: 179 132 252;
+    --color-primary-500: 162 104 248;
+    --color-primary-600: 127 51 234;
+    --color-primary-700: 107 34 206;
+    --color-primary-800: 92 33 168;
+    --color-primary-900: 76 28 135;
+    --color-primary-950: 49 7 100;
+
+    --color-danger-50: 254 242 245;
+    --color-danger-100: 254 229 234;
+    --color-danger-200: 252 207 219;
+    --color-danger-300: 249 168 188;
+    --color-danger-400: 244 120 154;
+    --color-danger-500: 233 53 107;
+    --color-danger-600: 215 39 100;
+    --color-danger-700: 182 26 84;
+    --color-danger-800: 152 25 76;
+    --color-danger-900: 130 25 71;
+    --color-danger-950: 72 9 35;
 }
