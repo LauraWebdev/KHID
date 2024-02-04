@@ -75,8 +75,6 @@ class Program
                 Data = list,
             };
             MessageHandler.MessageHandler.SendResponse(window, response);
-            
-            _logger.LogInformation("OnQueueUpdated");
         };
         downloadQueue.OnQueueItemProgressEventHandler += (sender, item) =>
         {
@@ -85,8 +83,6 @@ class Program
                 Data = item,
             };
             MessageHandler.MessageHandler.SendResponse(window, response);
-            
-            _logger.LogInformation("OnQueueItemProgress");
         };
 
         window.WaitForClose();
