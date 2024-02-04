@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Text;
 using KHID.UI.KHID.Shared;
+using KHID.UI.MessageHandler;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PhotinoNET;
@@ -33,9 +34,9 @@ class Program
             .CreateStaticFileServer(args, out var baseUrl)
             .RunAsync();
 
-        MessageHandler.MessageHandler messageHandler = new MessageHandler.MessageHandler();
-        SettingsManager.SettingsManager settingsManager = SettingsManager.SettingsManager.GetInstance();
-        DownloadQueue downloadQueue = new DownloadQueue();
+        var messageHandler = new MessageHandler.MessageHandler();
+        var settingsManager = SettingsManager.SettingsManager.GetInstance();
+        var downloadQueue = new DownloadQueue();
 
         var window = new PhotinoWindow()
             .SetTitle("KHInsider Downloader")
@@ -69,10 +70,22 @@ class Program
 
         downloadQueue.OnQueueUpdatedEventHandler += (sender, list) =>
         {
+            Message response = new() {
+                Command = "queue-updated-response",
+                Data = list,
+            };
+            MessageHandler.MessageHandler.SendResponse(window, response);
+            
             _logger.LogInformation("OnQueueUpdated");
         };
         downloadQueue.OnQueueItemProgressEventHandler += (sender, item) =>
         {
+            Message response = new() {
+                Command = "queue-item-progress-response",
+                Data = item,
+            };
+            MessageHandler.MessageHandler.SendResponse(window, response);
+            
             _logger.LogInformation("OnQueueItemProgress");
         };
 

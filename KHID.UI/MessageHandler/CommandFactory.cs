@@ -32,6 +32,9 @@ public class CommandFactory
             "settings-get" => new CommandSettingsGet(serviceProvider),
             "settings-get-full" => new CommandSettingsGetFull(serviceProvider),
             "settings-set" => new CommandSettingsSet(serviceProvider),
+            "output-path-select" => new CommandOutputPathSelect(serviceProvider),
+            "queue-add" => new CommandQueueAdd(serviceProvider),
+            "queue-get" => new CommandQueueGet(serviceProvider),
             "soundtrack-get" => new CommandSoundtrackGet(serviceProvider),
             _ => throw new Exception($"Unknown command: {command}")
         };

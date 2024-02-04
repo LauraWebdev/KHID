@@ -1,11 +1,42 @@
 <template>
-    <header>Header</header>
+    <AppHeader title="Download Queue">
+        <template #leftActions>
+            <button
+                class="flat"
+                @click="addDialog.dialog.openDialog()"
+            >
+                <span class="icon ri-add-line"></span>
+            </button>
+        </template>
+        <template #rightActions>
+            <button
+                class="flat"
+                @click="() => {}"
+            >
+                <span class="icon ri-settings-3-line"></span>
+            </button>
+            <button
+                class="flat"
+                @click="() => {}"
+            >
+                <span class="icon ri-information-2-fill"></span>
+            </button>
+        </template>
+    </AppHeader>
 
-    <router-view></router-view>
+    <main>
+        <router-view></router-view>
+    </main>
+
+    <AddDialog ref="addDialog" />
 </template>
 
 <script setup>
-import { inject } from 'vue';
+import { inject, ref } from 'vue';
+import AppHeader from '@/components/AppHeader.vue';
+import AddDialog from '@/components/AddDialog.vue';
+
+const addDialog = ref(null);
 
 const emitter = inject('emitter');
 window.external.receiveMessage((rawResponse) => {
@@ -14,4 +45,16 @@ window.external.receiveMessage((rawResponse) => {
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+#app {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto 1fr;
+
+    & > main {
+        overflow-y: auto;
+    }
+}
+</style>

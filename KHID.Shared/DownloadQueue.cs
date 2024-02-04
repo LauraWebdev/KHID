@@ -66,7 +66,7 @@ public class DownloadQueue
             var href = songListItem.GetAttributeValue("href", "");
             var song = new Song
             {
-                Name = songListItem.InnerText,
+                Title = songListItem.InnerText,
                 Url = $"https://downloads.khinsider.com{href}",
             };
             soundtrack.Songs.Add(song);
@@ -76,11 +76,17 @@ public class DownloadQueue
         return soundtrack;
     }
 
-    public void AddToQueue(string songUrl)
+    public void AddToQueue(QueueItem newItem, bool silent)
     {
-        Console.WriteLine($"[DownloadQueue] AddToQueue: {songUrl}");
-            
-        OnQueueUpdatedEventHandler?.Invoke(this, _queue);
+        Console.WriteLine($"[DownloadQueue] AddToQueue: {newItem.Title}");
+        
+        _queue.Add(newItem);
+        _ = WorkQueue();
+
+        if (!silent)
+        {
+            OnQueueUpdatedEventHandler?.Invoke(this, _queue);
+        }
     }
 
     public void ClearQueue()
