@@ -26,21 +26,21 @@ public class DownloadQueue
         var albumWebsite = new HtmlWeb();
         var albumDocument = await albumWebsite.LoadFromWebAsync(albumUrl);
         
-        var albumTitleNode = albumDocument.DocumentNode.SelectSingleNode("//head/title");
-        if (albumTitleNode.InnerHtml == "Error")
+        var pageTitleNode = albumDocument.DocumentNode.SelectSingleNode("//head/title");
+        if (pageTitleNode.InnerHtml == "Error")
         {
             // TODO: Error Handling
             Console.WriteLine("[DownloadQueue] Soundtrack does not exist!");
             return null;
         }
 
-        var albumNameNode = albumDocument.DocumentNode.SelectSingleNode("//*[@id=\"pageContent\"]/h2[1]");
-        Console.WriteLine($"[DownloadQueue] Soundtrack Name: {albumNameNode.GetDirectInnerText()}");
+        var albumTitleNode = albumDocument.DocumentNode.SelectSingleNode("//*[@id=\"pageContent\"]/h2[1]");
+        Console.WriteLine($"[DownloadQueue] Soundtrack Name: {albumTitleNode.GetDirectInnerText()}");
         
         var soundtrack = new Soundtrack
         {
             Url = albumUrl,
-            Name = albumNameNode.GetDirectInnerText(),
+            Title = albumTitleNode.GetDirectInnerText(),
             Slug = albumUrl.Replace("https://downloads.khinsider.com/game-soundtracks/album/", "")
         };
 
@@ -106,7 +106,7 @@ public class DownloadQueue
     {
         if (_isRunning) return;
         _isRunning = true;
-        
+         
         Console.WriteLine("[DownloadQueue] Starting queue.");
         
         while (_queue.Any(x => x.State == QueueItem.QueueState.Queued))

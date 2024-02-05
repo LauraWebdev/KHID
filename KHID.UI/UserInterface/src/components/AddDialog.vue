@@ -138,7 +138,7 @@ const emitter = inject('emitter');
 
 const dialog = ref(null);
 const loading = ref(false);
-const albumUrlOrSlug = ref('https://downloads.khinsider.com/game-soundtracks/album/portal');
+const albumUrlOrSlug = ref('');
 const addingToQueue = ref(false);
 const outputPath = ref('');
 const folderName = ref('');
@@ -171,12 +171,14 @@ const handleAddToQueue = () => {
     loading.value = true;
     addingToQueue.value = true;
 
+    console.log(album.value);
+
     let songs = [];
     includedSongs.value.forEach((song) => {
         songs.push({
             ...song,
             OutputPath: outputPath.value + '/' + folderName.value,
-            Soundtrack: album.value,
+            SoundtrackTitle: album.value.Title,
             Format: format.value,
         });
     });

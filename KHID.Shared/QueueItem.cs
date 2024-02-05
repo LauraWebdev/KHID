@@ -4,7 +4,7 @@ public class QueueItem
 {
     public string Title;
     public Uri Url;
-    public Soundtrack Soundtrack;
+    public string SoundtrackTitle;
     public string OutputPath;
     public string Format;
     public double DownloadProgress = 0f;

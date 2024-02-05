@@ -24,7 +24,7 @@ public class CommandQueueAdd(IServiceProvider serviceProvider) : ICommand
 
             if (!dataItem.TryGetValue("Title", out var titleToken) || titleToken is not JValue) continue;
             if (!dataItem.TryGetValue("Url", out var urlToken) || urlToken is not JValue) continue;
-            if (!dataItem.TryGetValue("Soundtrack", out var soundtrackToken) || soundtrackToken is not JObject) continue;
+            if (!dataItem.TryGetValue("SoundtrackTitle", out var soundtrackTitleToken) || soundtrackTitleToken is not JValue) continue;
             if (!dataItem.TryGetValue("OutputPath", out var outputPathToken) || outputPathToken is not JValue) continue;
             if (!dataItem.TryGetValue("Format", out var formatToken) || formatToken is not JValue) continue;
 
@@ -32,7 +32,7 @@ public class CommandQueueAdd(IServiceProvider serviceProvider) : ICommand
             {
                 Title = titleToken.ToObject<string>(),
                 Url = new Uri(urlToken.ToObject<string>()),
-                Soundtrack = soundtrackToken.ToObject<Soundtrack>(),
+                SoundtrackTitle = soundtrackTitleToken.ToObject<string>(),
                 OutputPath = outputPathToken.ToObject<string>(),
                 Format = formatToken.ToObject<string>()
             };

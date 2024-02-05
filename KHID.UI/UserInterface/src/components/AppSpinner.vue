@@ -9,8 +9,8 @@
 
 <style lang="scss" scoped>
 .app-spinner {
-    width: 48px;
-    height: 48px;
+    width: 32px;
+    height: 32px;
     position: relative;
 
     & .icon {
@@ -18,6 +18,8 @@
         width: 48px;
         height: 48px;
         display: flex;
+        top: -8px;
+        left: -8px;
 
         &.rotating {
             align-items: flex-start;

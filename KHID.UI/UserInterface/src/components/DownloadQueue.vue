@@ -10,11 +10,10 @@
                 <p>Add media to the queue to start downloading</p>
             </div>
             <AppList v-if="queue.length > 0">
-                <AppListActionRow
+                <AppListQueueItemRow
                     v-for="item in queue"
                     :key="item.Url"
-                    :title="item.Title"
-                    :subtitle="`${getState(item.State)} - ${getResult(item.Result)} - ${Math.round(item.DownloadProgress * 10) / 10}%`"
+                    :queue-item="item"
                 />
             </AppList>
         </div>
@@ -24,35 +23,11 @@
 <script setup>
 import Wrapper from '@/components/Wrapper.vue';
 import { inject, onMounted, onUnmounted, ref } from 'vue';
-import AppListActionRow from '@/components/AppListActionRow.vue';
 import AppList from '@/components/AppList.vue';
+import AppListQueueItemRow from '@/components/AppListQueueItemRow.vue';
 
 const emitter = inject('emitter');
 const queue = ref([]);
-
-const getState = (state) => {
-    switch (state) {
-        default:
-            return 'Unknown';
-        case 0:
-            return 'Queued';
-        case 1:
-            return 'Downloading';
-        case 2:
-            return 'Done';
-    }
-};
-
-const getResult = (result) => {
-    switch (result) {
-        default:
-            return 'Unknown';
-        case 0:
-            return 'Error';
-        case 1:
-            return 'Succeeded';
-    }
-};
 
 onMounted(() => {
     emitter.on('queue-get-response', (response) => {
