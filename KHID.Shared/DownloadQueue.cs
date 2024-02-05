@@ -131,11 +131,12 @@ public class DownloadQueue
                 var downloadLinks = songDocument.DocumentNode.SelectNodes("//a[contains(@href, '/soundtracks/')]");
                 
                 Console.WriteLine($"[DownloadQueue] ({queueItem.Title}) - Downloading");
-                // TODO: Download Selected Format instead of all
                 foreach (var downloadLink in downloadLinks)
                 {
                     var downloadUrl = new Uri(downloadLink.GetAttributeValue("href", ""));
                     var fileName = Path.GetFileName(downloadUrl.LocalPath);
+                    if (!fileName.Contains("." + queueItem.Format)) continue;
+                    
                     var outputPath = Path.Combine(queueItem.OutputPath, fileName);
 
                     IProgress<double> progress = new Progress<double>(percentage =>
