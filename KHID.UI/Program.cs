@@ -44,6 +44,7 @@ class Program
             .SetSize(Convert.ToInt32(850 * ScreenScaleFactor.Get()), Convert.ToInt32(720 * ScreenScaleFactor.Get()))
             .SetUseOsDefaultSize(false)
             .Center()
+            .SetLogVerbosity(0)
             .SetResizable(true)
             .RegisterCustomSchemeHandler("app", (object sender, string scheme, string url, out string contentType) =>
             {
