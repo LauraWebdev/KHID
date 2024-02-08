@@ -14,12 +14,27 @@ public class CommandSoundtrackGet(IServiceProvider serviceProvider) : ICommand
         if (data == null) return;
         var urlOrSlug = data.ToString();
 
-        var soundtrack = await DownloadQueue.Instance.GetSoundtrackMeta(urlOrSlug);
+        Message response;
+        try
+        {
+            var soundtrack = await DownloadQueue.Instance.GetSoundtrackMeta(urlOrSlug);
 
-        Message response = new() {
-            Command = "soundtrack-get-response",
-            Data = soundtrack
-        };
+            response = new Message
+            {
+                Command = "soundtrack-get-response",
+                Data = soundtrack
+            };
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            
+            response = new Message
+            {
+                Command = "soundtrack-get-response",
+                Data = null
+            };
+        }
 
         MessageHandler.SendResponse(sender, response);
     }
