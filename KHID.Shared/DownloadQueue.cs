@@ -46,11 +46,13 @@ public class DownloadQueue
 
         // File Formats
         var hasCdHeader = false;
+        var hasNumberHeader = false;
         var songListHeaderItems = albumDocument.DocumentNode.SelectNodes("//*[@id=\"songlist_header\"]/th");
         foreach (var songListHeaderItem in songListHeaderItems)
         {
-            // If the table has a column named "CD", the title will be on column 4 and not 3
+            // If the table has a column named "CD" or "#", the title will be one column further each
             if (songListHeaderItem.InnerText == "CD") hasCdHeader = true;
+            if (songListHeaderItem.InnerText == "#") hasNumberHeader = true;
             
             // Filter out non-format table headers
             if (new [] { "", "&nbsp;", "CD", "#", "Song Name" }.Contains(songListHeaderItem.InnerText)) continue;
@@ -59,8 +61,13 @@ public class DownloadQueue
         }
         Console.WriteLine($"[DownloadQueue] Formats: {string.Join(", ", soundtrack.Formats)}");
         
+        // Title is on column 2, 3 if either "CD" or "#" column is present or 4 if both are present
+        var titleColumn = 2;
+        if (hasCdHeader) titleColumn++;
+        if (hasNumberHeader) titleColumn++;
+        
         // Songs
-        var songListItems = albumDocument.DocumentNode.SelectNodes($"//*[@id=\"songlist\"]/tr[not(@id)]/td[{(hasCdHeader ? '4' : '3')}]/a");
+        var songListItems = albumDocument.DocumentNode.SelectNodes($"//*[@id=\"songlist\"]/tr[not(@id)]/td[{titleColumn}]/a");
         foreach (var songListItem in songListItems)
         {
             var href = songListItem.GetAttributeValue("href", "");
