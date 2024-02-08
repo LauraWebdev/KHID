@@ -7,7 +7,7 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            name: 'indexintro',
+            name: 'queue',
             component: ViewIndex,
         },
         {

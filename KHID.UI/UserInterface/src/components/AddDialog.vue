@@ -171,8 +171,6 @@ const handleAddToQueue = () => {
     loading.value = true;
     addingToQueue.value = true;
 
-    console.log(album.value);
-
     let songs = [];
     includedSongs.value.forEach((song) => {
         songs.push({
@@ -194,6 +192,13 @@ const handleAddToQueue = () => {
 };
 
 onMounted(() => {
+    window.external.sendMessage(
+        JSON.stringify({
+            Command: 'settings-get',
+            Data: 'output.defaultPath',
+        }),
+    );
+
     emitter.on('soundtrack-get-response', (response) => {
         album.value = response;
         folderName.value = album.value.Slug;
@@ -208,6 +213,11 @@ onMounted(() => {
     });
     emitter.on('output-path-select-response', (response) => {
         outputPath.value = response;
+    });
+    emitter.on('settings-get-response', (response) => {
+        if (response.key === 'output.defaultPath') {
+            outputPath.value = response.data;
+        }
     });
     emitter.on('queue-add-response', (response) => {
         loading.value = false;
@@ -224,6 +234,7 @@ onMounted(() => {
 onUnmounted(() => {
     emitter.off('soundtrack-get-response');
     emitter.off('output-path-select-response');
+    emitter.off('settings-get-response');
     emitter.off('queue-add-response');
 });
 
