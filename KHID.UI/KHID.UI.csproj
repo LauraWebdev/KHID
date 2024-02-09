@@ -9,6 +9,7 @@
 		<GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
 		<EmbedWwwRoot>false</EmbedWwwRoot>
 		<PublishSingleFile>true</PublishSingleFile>
+		<SelfContained>true</SelfContained>
 	</PropertyGroup>
 
 	<ItemGroup>
