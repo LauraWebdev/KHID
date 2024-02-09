@@ -1,0 +1,36 @@
+{
+  "app-id": "media.laura.khid",
+  "runtime": "org.freedesktop.Platform",
+  "runtime-version": "23.08",
+  "sdk": "org.freedesktop.Sdk",
+  "sdk-extensions": [
+    "org.freedesktop.Sdk.Extension.dotnet8"
+  ],
+  "build-options": {
+    "append-path": "/usr/lib/sdk/dotnet8/bin",
+    "append-ld-library-path": "/usr/lib/sdk/dotnet8/lib",
+    "append-pkg-config-path": "/usr/lib/sdk/dotnet8/lib/pkgconfig"
+  },
+  "command": "KHID.UI",
+  "modules": [
+    {
+      "name": "KHID.UI",
+      "buildsystem": "simple",
+      "build-options": {
+        "build-args": [
+          "--share=network"
+        ]
+      },
+      "build-commands": [
+        "chmod +x ./flatpak/build.sh",
+        "./flatpak/build.sh"
+      ],
+      "sources": [
+        {
+          "type": "dir",
+          "path": ".."
+        }
+      ]
+    }
+  ]
+}

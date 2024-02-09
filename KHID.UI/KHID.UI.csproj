@@ -8,6 +8,7 @@
 		<Nullable>enable</Nullable>
 		<GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
 		<EmbedWwwRoot>false</EmbedWwwRoot>
+		<PublishSingleFile>true</PublishSingleFile>
 	</PropertyGroup>
 
 	<ItemGroup>
