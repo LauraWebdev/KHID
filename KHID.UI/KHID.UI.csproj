@@ -6,10 +6,16 @@
 		<Platforms>AnyCPU</Platforms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
-		<EmbedWwwRoot>false</EmbedWwwRoot>
-		<PublishSingleFile>true</PublishSingleFile>
+		<ApplicationIcon>./publish/templates/win/app.ico</ApplicationIcon>
+		<Version>1.0.0</Version>
 		<SelfContained>true</SelfContained>
+		<PublishSingleFile>true</PublishSingleFile>
+		<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+		<EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+		<EnableDefaultContent>false</EnableDefaultContent>
+		<EnableDefaultContentItems>false</EnableDefaultContentItems>
+		<DebugType>embedded</DebugType>
+		<GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -21,7 +27,7 @@
 
 	<PropertyGroup>
 		<UiRoot>UserInterface\</UiRoot>
-    <UiBuildOutput>dist\</UiBuildOutput>
+    	<UiBuildOutput>dist\</UiBuildOutput>
 		<WwwRoot Condition=" '$(EmbedWwwRoot)' != 'true' ">wwwroot\</WwwRoot>
 		<WwwRoot Condition=" '$(EmbedWwwRoot)' == 'true' ">Resources\wwwroot\</WwwRoot>
 	</PropertyGroup>
@@ -72,4 +78,14 @@
 		<RemoveDir Directories="$(UiRoot)$(UiBuildOutput)" />
 	</Target>
 
+	<Target AfterTargets="Publish" Name="MovePublishedSingleFile">
+		<!-- Move single file application (Windows, macOS, Linux) to {{ProjectDir}}/publish/build path after build completed -->
+		<ItemGroup>
+			<PublishFile Include="$(PublishDir)\*" />
+		</ItemGroup>
+
+		<Move
+				SourceFiles="@(PublishFile)"
+				DestinationFolder="$(ProjectDir)\publish\build\$(AssemblyName).$(Version).$(RuntimeIdentifier)" />
+	</Target>
 </Project>
