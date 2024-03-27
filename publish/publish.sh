@@ -269,7 +269,7 @@ fi
 # Set version from first argument
 # or get latest tag from git and remove the "v" prefix
 if [ -z "$2" ]; then
-    APP_VERSION=$((git describe --tags --abbrev=0 2> /dev/null || echo "0.0.1") | sed 's/v//')
+    APP_VERSION=$((git describe --tags --abbrev=0 2> /dev/null || echo "1.0.0") | sed 's/v//')
 else
     APP_VERSION=$2
 fi
@@ -330,7 +330,7 @@ for PLATFORM in $PLATFORMS; do
 
     # Copy and prepare elements for Linux (Debian Package and Flatpak)
     if [[ $PLATFORM == linux-* ]]; then
-        create_deb_package $PLATFORM
+        # create_deb_package $PLATFORM
         create_flatpack_package $PLATFORM
     fi
 
