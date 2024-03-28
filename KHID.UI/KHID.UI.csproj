@@ -16,6 +16,7 @@
 		<EnableDefaultContentItems>false</EnableDefaultContentItems>
 		<DebugType>embedded</DebugType>
 		<GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+		<EmbedWwwRoot>true</EmbedWwwRoot>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -36,6 +37,7 @@
 		<Content Remove="$(UiRoot)**" />
 		<None Remove="$(UiRoot)**" />
 		<None Include="$(UiRoot)**" Exclude="$(UiRoot)node_modules\**" />
+		<Content Include="wwwroot/**" CopyToOutputDirectory="PreserveNewest" />
 	</ItemGroup>
 
 	<ItemGroup>
